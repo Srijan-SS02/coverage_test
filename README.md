@@ -10,7 +10,7 @@ Get coverage
 
 ## Code Coverage
 
-Current coverage: Code Coverage: 0%
+Current coverage: <!-- coverage -->
 
 
-## hello
+
