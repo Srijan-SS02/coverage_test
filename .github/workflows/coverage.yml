@@ -60,4 +60,19 @@ jobs:
           minimum-ratio: 0 # Fails Github action once code coverage is decreasing
           send-summary-comment: true
           show-annotations: "warning" # Possible options warning|error
+
+      - name: Calculate Coverage Percentage and Update README
+        run: |
+            # Assuming jest --coverage generates a coverage summary that can be parsed
+            COVERAGE_PERCENTAGE=$(grep -Po 'All files.*\K\d+\.\d+(?=%)' ./coverage/lcov-report/index.html)
+            echo "Coverage percentage is $COVERAGE_PERCENTAGE%"
+            sed -i "s/<!-- coverage -->/Code Coverage: $COVERAGE_PERCENTAGE%/g" README.md
+  
+      - name: Commit and push changes
+        run: |
+            git config --global user.email "action@github.com"
+            git config --global user.name "SamagraGithubAction"
+            git add README.md
+            git commit -m "Update README with code coverage percentage" -a || echo "No changes to commit"
+            git push
           
