@@ -19,8 +19,8 @@ jobs:
       - name: Install dependencies
         run: yarn
 
-      - name: Run test coverage
-        run: yarn coverage
+      - name: Run test coverage with jest
+        run: yarn jest --coverage
 
       - name: Upload code coverage for ref branch
         uses: actions/upload-artifact@v3
