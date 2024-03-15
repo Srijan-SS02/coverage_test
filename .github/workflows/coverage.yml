@@ -75,20 +75,13 @@ jobs:
             echo "::set-output name=coverage_percentage::$COVERAGE_PERCENTAGE"
             echo "Coverage percentage is $COVERAGE_PERCENTAGE%"
       
-      - name: Calculate Coverage Percentage
+      - name: Update README with Coverage Percentage
         run: |
-              TOTAL_LINES=$(awk '/LF:/{total += $2} END {print total}' ./coverage/lcov.info)
-              COVERED_LINES=$(awk '/LH:/{covered += $2} END {print covered}' ./coverage/lcov.info)
-              
-              # Prevent division by zero
-              if [ "$TOTAL_LINES" -eq 0 ]; then
-                COVERAGE_PERCENTAGE=0
-              else
-                COVERAGE_PERCENTAGE=$(awk -v covered="$COVERED_LINES" -v total="$TOTAL_LINES" 'BEGIN {printf "%.2f", (covered/total)*100}')
-              fi
-              
-              echo "::set-output name=coverage_percentage::$COVERAGE_PERCENTAGE"
-              echo "Coverage percentage is $COVERAGE_PERCENTAGE%"
+            COVERAGE_PERCENTAGE=${{ needs.calculate_coverage_percentage.outputs.coverage_percentage }}
+            echo "Updating README with coverage percentage: $COVERAGE_PERCENTAGE%"
+            sed -i "s/<!-- coverage -->/Code Coverage: $COVERAGE_PERCENTAGE%/g" README.md
+            # Verify that sed command ran successfully
+            grep 'Code Coverage' README.md || echo "README update failed"
 
 
       - name: Commit and push changes
