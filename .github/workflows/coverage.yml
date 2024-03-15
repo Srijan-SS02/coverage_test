@@ -110,11 +110,11 @@ jobs:
           name: coverage-percentage
       - name: Update README with Coverage Percentage
         run: |
-            . coverage_percentage.env # Source the coverage percentage
-            echo "Updating README with coverage percentage: $COVERAGE_PERCENTAGE%"
-            sed -i "s/<!-- coverage -->/Code Coverage: $COVERAGE_PERCENTAGE%/g" README.md
-            grep 'Code Coverage' README.md || echo "README update failed"
-            cat README.md # For debugging; remove this line once confirmed working
+          COVERAGE_TEXT="<!-- coverage-start -->\nCode Coverage: $COVERAGE_PERCENTAGE%\n<!-- coverage-end -->"
+          sed -i "/<!-- coverage-start -->/,/<!-- coverage-end -->/c $COVERAGE_TEXT" README.md
+          grep 'Code Coverage' README.md || echo "README update failed"
+          cat README.md # For debugging; remove this line once confirmed working
+      
       - name: Commit and push changes
         run: |
           git config --global user.email "action@github.com"
