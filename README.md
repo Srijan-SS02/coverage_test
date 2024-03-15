@@ -7,3 +7,5 @@ Run the test
 Get coverage
 
 `npx jest --coverage`
+
+## added workflow
