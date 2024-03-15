@@ -8,3 +8,8 @@ Get coverage
 
 `npx jest --coverage`
 
+## Code Coverage
+
+Current coverage: <!-- coverage -->
+
+
