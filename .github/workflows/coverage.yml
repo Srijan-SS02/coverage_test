@@ -53,13 +53,27 @@ jobs:
           minimum-ratio: 0
           send-summary-comment: true
           show-annotations: "warning"
+      - name: Check lcov.info content
+        run: |
+            cat ./coverage/lcov.info
+            # Or to just check if the file exists and is not empty
+            ls -l ./coverage/lcov.info
+  
+      
       - name: Calculate Coverage Percentage
         run: |
-          TOTAL_LINES=$(awk '/LF:/{total += $2} END {print total}' ./coverage/lcov.info)
-          COVERED_LINES=$(awk '/LH:/{covered += $2} END {print covered}' ./coverage/lcov.info)
-          COVERAGE_PERCENTAGE=$(awk -v covered="$COVERED_LINES" -v total="$TOTAL_LINES" 'BEGIN {printf "%.2f", (covered/total)*100}')
-          echo "Coverage percentage is $COVERAGE_PERCENTAGE%"
-          echo "::set-output name=coverage_percentage::$COVERAGE_PERCENTAGE"
+            TOTAL_LINES=$(awk '/LF:/{total += $2} END {print total}' ./coverage/lcov.info)
+            COVERED_LINES=$(awk '/LH:/{covered += $2} END {print covered}' ./coverage/lcov.info)
+            
+            # Prevent division by zero
+            if [ "$TOTAL_LINES" -eq 0 ]; then
+            COVERAGE_PERCENTAGE=0
+            else
+            COVERAGE_PERCENTAGE=$(awk -v covered="$COVERED_LINES" -v total="$TOTAL_LINES" 'BEGIN {printf "%.2f", (covered/total)*100}')
+            fi
+            
+            echo "::set-output name=coverage_percentage::$COVERAGE_PERCENTAGE"
+            echo "Coverage percentage is $COVERAGE_PERCENTAGE%"
       - name: Update README with Coverage Percentage
         run: |
           COVERAGE_PERCENTAGE=${{ steps.calc_coverage.outputs.coverage_percentage }}
