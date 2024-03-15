@@ -60,23 +60,23 @@ jobs:
             ls -l ./coverage/lcov.info
       - name: Calculate Coverage Percentage
         run: |
-          # Extract total executable lines (LF) and total lines covered (LH) from lcov.info
-          TOTAL_LINES=$(grep '^LF:' ./coverage/lcov.info | awk '{SUM += $2} END {print SUM}')
-          COVERED_LINES=$(grep '^LH:' ./coverage/lcov.info | awk '{SUM += $2} END {print SUM}')
+            # Extract total executable lines (LF) and total lines covered (LH) from lcov.info
+            TOTAL_LINES=$(awk '/^LF:/{total += $2} END {print total}' ./coverage/lcov.info)
+            COVERED_LINES=$(awk '/^LH:/{covered += $2} END {print covered}' ./coverage/lcov.info)
 
-          echo "TOTAL_LINES: $TOTAL_LINES"
-          echo "COVERED_LINES: $COVERED_LINES"
+            echo "TOTAL_LINES: $TOTAL_LINES"
+            echo "COVERED_LINES: $COVERED_LINES"
 
-          # Check if TOTAL_LINES is zero to avoid division by zero error
-          if [ "$TOTAL_LINES" -eq 0 ]; then
-              COVERAGE_PERCENTAGE=0
-          else
-              COVERAGE_PERCENTAGE=$(echo "scale=2; $COVERED_LINES * 100 / $TOTAL_LINES" | bc)
-          fi
+            # Check if TOTAL_LINES is zero to avoid division by zero error
+            if [ "$TOTAL_LINES" -eq 0 ]; then
+                COVERAGE_PERCENTAGE=0
+            else
+                COVERAGE_PERCENTAGE=$(echo "scale=2; $COVERED_LINES * 100 / $TOTAL_LINES" | bc)
+            fi
 
-          echo "Coverage percentage is $COVERAGE_PERCENTAGE%"
-          # Create a file to persist the coverage percentage
-          echo "COVERAGE_PERCENTAGE=$COVERAGE_PERCENTAGE" > coverage_percentage.env
+            echo "Coverage percentage is $COVERAGE_PERCENTAGE%"
+            # Create a file to persist the coverage percentage
+            echo "COVERAGE_PERCENTAGE=$COVERAGE_PERCENTAGE" > coverage_percentage.env
 
       - name: Upload coverage percentage
         uses: actions/upload-artifact@v3
