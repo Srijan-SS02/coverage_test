@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1710480484780" clover="3.2.0">
-  <project timestamp="1710480484780" name="All files">
+<coverage generated="1710493535017" clover="3.2.0">
+  <project timestamp="1710493535018" name="All files">
     <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1" elements="3" coveredelements="3" complexity="0" loc="2" ncloc="2" packages="1" files="1" classes="1"/>
-    <file name="mathFunctions.js" path="/home/ss02/coverage_test/mathFunctions.js">
+    <file name="mathFunctions.js" path="/home/runner/work/coverage_test/coverage_test/mathFunctions.js">
       <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
       <line num="2" count="2" type="stmt"/>
       <line num="5" count="1" type="stmt"/>
