@@ -71,8 +71,9 @@ jobs:
       - name: Calculate Coverage Percentage
         run: |
             # Extract total executable lines (LF) and total lines covered (LH) from lcov.info
-            TOTAL_LINES=$(awk '/^LF:/{total += $2} END {print total}' ./coverage/lcov.info)
-            COVERED_LINES=$(awk '/^LH:/{covered += $2} END {print covered}' ./coverage/lcov.info)
+            TOTAL_LINES=$(awk -F':' '/LF:/ {total += $2} END {print total}' ./coverage/lcov.info)
+            COVERED_LINES=$(awk -F':' '/LH:/ {covered += $2} END {print covered}' ./coverage/lcov.info)
+
 
             echo "TOTAL_LINES: $TOTAL_LINES"
             echo "COVERED_LINES: $COVERED_LINES"
