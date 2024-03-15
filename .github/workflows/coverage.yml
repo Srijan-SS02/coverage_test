@@ -46,8 +46,8 @@ jobs:
       - name: Install dependencies
         run: yarn
 
-      - name: Run test coverage
-        run: yarn coverage
+      - name: Run test coverage with jest
+        run: yarn jest --coverage
 
       #  Compares two code coverage files and generates report as a comment
       - name: Generate Code Coverage report
