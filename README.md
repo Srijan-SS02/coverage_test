@@ -12,6 +12,6 @@ Get coverage
 
 <<<<<<< HEAD
 <!-- coverage-start -->
-Code Coverage: <!-- coverage -->%
+Code Coverage: %
 <!-- coverage-end -->
 
