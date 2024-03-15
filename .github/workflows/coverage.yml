@@ -64,6 +64,9 @@ jobs:
           TOTAL_LINES=$(grep '^LF:' ./coverage/lcov.info | awk '{SUM += $2} END {print SUM}')
           COVERED_LINES=$(grep '^LH:' ./coverage/lcov.info | awk '{SUM += $2} END {print SUM}')
 
+          echo "TOTAL_LINES: $TOTAL_LINES"
+          echo "COVERED_LINES: $COVERED_LINES"
+
           # Check if TOTAL_LINES is zero to avoid division by zero error
           if [ "$TOTAL_LINES" -eq 0 ]; then
               COVERAGE_PERCENTAGE=0
@@ -82,7 +85,7 @@ jobs:
           path: coverage_percentage.env
 
 
-          
+
   update_readme:
     runs-on: ubuntu-latest
     needs: [base_branch_cov, checks]
