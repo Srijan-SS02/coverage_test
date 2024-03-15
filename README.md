@@ -11,6 +11,6 @@ Get coverage
 ## Code Coverage
 
 <!-- coverage-start -->
-Code Coverage: <!-- coverage -->%
+Code Coverage: %
 <!-- coverage-end -->
 
