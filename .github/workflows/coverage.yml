@@ -53,21 +53,6 @@ jobs:
           minimum-ratio: 0
           send-summary-comment: true
           show-annotations: "warning"
-      - name: Check lcov.info content
-        run: |
-            cat ./coverage/lcov.info
-            # Or to just check if the file exists and is not empty
-            ls -l ./coverage/lcov.info
-
-
-      - name: Debug grep LF
-        run: grep '^LF:' ./coverage/lcov.info
-    
-      - name: Debug grep LH
-        run: grep '^LH:' ./coverage/lcov.info
-          
-
-        # Everything is working fine till here
       - name: Calculate Coverage Percentage
         run: |
             # Extract total executable lines (LF) and total lines covered (LH) from lcov.info
