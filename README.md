@@ -11,6 +11,6 @@ Get coverage
 ## Code Coverage
 
 <!-- coverage-start -->
-Code Coverage: %
+Code Coverage: 100.00%
 <!-- coverage-end -->
 
