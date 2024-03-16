@@ -112,7 +112,7 @@ jobs:
         run: |
           . coverage_percentage.env # Source the coverage percentage
           echo "Updating README with coverage percentage: $COVERAGE_PERCENTAGE%"
-          sed -i "/<!-- coverage-start -->/,/<!-- coverage-end -->/s/Code Coverage: [0-9]*\.[0-9]*%/Code Coverage: $COVERAGE_PERCENTAGE%/" README.md
+          sed -i "/<!-- coverage-start -->/,/<!-- coverage-end -->/s/Code Coverage: .*%/Code Coverage: $COVERAGE_PERCENTAGE%/" README.md
           grep 'Code Coverage' README.md || echo "README update failed"
           cat README.md # For debugging; remove this line once confirmed working
       - name: Commit and push changes
